@@ -1,0 +1,26 @@
+t = input()
+t = int(t)
+t_out = []
+for i in range(t):
+    n, b = input().split(" ")
+    n, b = int(n), int(b)
+    total = 0
+    count = 0
+    h_prices = input().split(" ")
+    for k in range(len(h_prices)):
+        h_prices[k] = int(h_prices[k])
+    while total <= b:
+        lowest = 1000
+        index = 0
+        for j in range(len(h_prices)):
+            if h_prices[j] < lowest:
+                lowest = h_prices[j]
+                index = j
+        del h_prices[index]
+        total += lowest
+        count += 1
+    count -= 1
+    t_out.append(count)
+for i in range(t):
+    print("Case #" + str(i + 1) + ": " + str(t_out[i]))
+        
