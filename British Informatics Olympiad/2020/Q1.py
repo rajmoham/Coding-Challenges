@@ -1,32 +1,43 @@
-'''r_string, n = input().split(" ")
+r_string, n = input().split(" ")
 n = int(n)
 
-def NumeralCount(num):
-    numerals = {10:"X", 9:"IX", 5:"V", 4:"IV", 1:"I"}
-    n_string = ""
-    while num != 0:
-        for i in numerals:
-            if num >= i:
-                num -= 1
-                n_string += numerals[i]
-                break
-    return n_string
+numerals = {10:"X", 9:"IX", 5:"V", 4:"IV", 1:"I"}
+
+def NumeralCount(string):
+    last_char = string[0]
+    num = 0
+    chars = []
+    counts = []
+    for i in string:
+        if last_char == i:
+            num += 1
+        else:
+            chars.append(last_char)
+            counts.append(num)
+            last_char = i
+            num = 1
+    chars.append(last_char)
+    counts.append(num)
+
+    return chars, counts
+
+def GetNewString(character, char_count):
+    new_string = ""
+    for i in range(len(character)):
+        num = char_count[i]
+        while num != 0:
+            for j in numerals:
+                if num >= j:
+                    num -= j
+                    new_string += numerals[j]
+                    break
+        new_string += character[i]
+
+    return new_string    
 
 for i in range(n):
-    roman = ""
-
-    last_chr = ""
-    counts = 0
-    for i in r_string:
-        if i == last_chr:
-            counts += 1
-        else:
-            roman += NumeralCount(counts) + last_chr
-            last_chr = i
-            counts = 1
-    roman += NumeralCount(counts) + last_chr
-
-    r_string = roman
+    character, char_count = NumeralCount(r_string)
+    r_string = GetNewString(character, char_count)
 
 num_I = 0
 num_V = 0
@@ -37,6 +48,5 @@ for i in r_string:
         num_V += 1
 
 print(num_I, num_V)
-print(r_string)'''
 
         
